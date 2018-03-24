@@ -7,7 +7,7 @@ LOCAL_SRC_FILES := \
 	mtkcamhack.cpp \
 	mtk_ui.cpp \
 	mtk_omx.cpp \
-        mtk_sensor.cpp \
+    mtk_sensor.cpp \
 	icu55.c \
 	crypto.c \
 	ssl.c
@@ -24,6 +24,7 @@ LOCAL_SHARED_LIBRARIES := libcutils libbinder libutils liblog libgui libui libic
 LOCAL_C_INCLUDES += frameworks/av/media/mtp/ system/core/include/ frameworks/rs/server/ frameworks/av/include/ hardware/libhardware/include/ frameworks/native/libs/sensor/include/
 LOCAL_MODULE := libmtk_symbols
 LOCAL_MODULE_TAGS := optional
+LOCAL_PROPRIETARY_MODULE := true
 
 LOCAL_CLANG := true
 LOCAL_CPPFLAGS := -std=c++1y
