@@ -103,7 +103,8 @@ PRODUCT_PACKAGES += \
 	libwpa_client \
 	hostapd \
 	wpa_supplicant \
-    wificond
+        wifilogd \
+        wificond
 
 # Media
 PRODUCT_COPY_FILES += \
