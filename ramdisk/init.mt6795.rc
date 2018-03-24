@@ -25,12 +25,12 @@ export LD_PRELOAD "libmtk_symbols.so"
   mkdir /nvdata    0771 root system
 
 service kernel_loggy /system/bin/sh /loggy.sh kernel
-    class main
+    class core
     user root
     oneshot
 
 service system_loggy /system/bin/sh /loggy.sh system
-    class main
+    class core
     user root
     oneshot
 
@@ -108,7 +108,7 @@ on fs
 
 on fs
 
-   mount iso9660 loop@/system/etc/iAmCdRom.iso /mnt/cd-rom ro
+   mount iso9660 loop@/system/vendor/etc/iAmCdRom.iso /mnt/cd-rom ro
 
 on post-fs
     # Support legacy paths
@@ -173,7 +173,7 @@ on post-fs
     chown radio system /proc/spm_fs/mcdi
 
     #change partition permission
-    exec /system/etc/partition_permission.sh
+    exec /system/vendor/etc/partition_permission.sh
 
     # change owner
     chown system system /proc/bootprof
@@ -847,12 +847,12 @@ on property:vold.decrypt=trigger_shutdown_framework
     setprop service.nvram_init 0
     write /proc/bootprof "trigger_shutdown_framework"
 
-service stop_modem /system/bin/md_ctrl 0
+service stop_modem /system/vendor/bin/md_ctrl 0
     class main
     disabled
     oneshot
 
-service start_modem /system/bin/md_ctrl 1
+service start_modem /system/vendor/bin/md_ctrl 1
     class main
     disabled
     oneshot
@@ -862,11 +862,11 @@ on property:persist.uartconsole.enable=1
     write /proc/mtprintk 1
 
 # Update the second boot logo
-service bootlogoupdater /system/bin/boot_logo_updater
+service bootlogoupdater /system/vendor/bin/boot_logo_updater
     class main
     oneshot
 
-service mobile_log_d /system/bin/mobile_log_d
+service mobile_log_d /system/vendor/bin/mobile_log_d
     class main
 # MTK PR_DEBUG SWITCH
 on property:debug.MB.prdebug=1
@@ -875,7 +875,7 @@ on property:debug.MB.prdebug=1
 on property:debug.MB.prdebug=0
     write /sys/kernel/debug/dynamic_debug/control "file *mediatek* -p"
 
-service met_log_d /system/bin/met_log_d
+service met_log_d /system/vendor/bin/met_log_d
     class main
 
 #service bugreport /system/bin/dumpstate -d -p -B -q\
@@ -980,9 +980,9 @@ service autokd /system/bin/autokd
 
 service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
-    -I/system/etc/wifi/wpa_supplicant_overlay.conf -N \
+    -I/system/vendor/etc/wifi/wpa_supplicant_overlay.conf -N \
     -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf -e/data/misc/wifi/entropy.bin -dd \
-    -I/system/etc/wifi/p2p_supplicant_overlay.conf \
+    -I/system/vendor/etc/wifi/p2p_supplicant_overlay.conf \
     -O/data/misc/wifi/sockets -g@android:wpa_wlan0
     #   we will start as root and wpa_supplicant will switch to user wifi
     #   after setting up the capabilities required for WEXT
